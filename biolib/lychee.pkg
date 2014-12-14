@@ -1,0 +1,72 @@
+{
+
+  "build": {
+
+    "environments": {
+
+      "html/client": {
+        "build":    "game.net.Client",
+        "debug":    false,
+        "sandbox":  false,
+        "type":     "library",
+        "packages": [
+          [ "game", "./lychee.pkg" ]
+        ],
+        "tags": {
+          "platform": [ "html" ]
+        }
+      },
+
+      "nodejs/server": {
+        "build":    "game.net.Server",
+        "debug":    false,
+        "sandbox":  false,
+        "type":     "file",
+        "packages": [
+          [ "game", "./lychee.pkg" ]
+        ],
+        "tags": {
+          "platform": [ "nodejs" ]
+        }
+      }
+
+    },
+
+    "files": {
+
+    }
+
+  },
+
+  "source": {
+
+    "environments": {
+
+    },
+
+    "tags": {
+
+    },
+
+    "files": {
+
+      "net": {
+
+        "client": {
+          "File": [ "js" ]
+        },
+
+        "remote": {
+          "File": [ "js" ]
+        },
+
+        "Client": [ "js" ],
+        "Server": [ "js" ]
+
+      }
+
+    }
+
+  }
+
+}
