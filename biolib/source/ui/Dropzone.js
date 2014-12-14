@@ -53,7 +53,7 @@ lychee.define('game.ui.Dropzone').includes([
 
           instance = lychee.deserialize({
             'constructor': construct,
-            'arguments':   [ file.buffer.substr(index + 7 ) ]
+            'arguments':   [ file.buffer.substr(index + 7) ]
           });
 
         }
@@ -295,6 +295,14 @@ lychee.define('game.ui.Dropzone').includes([
 
 
   Class.prototype = {
+
+    refresh: function() {
+
+      if (this.element !== null) {
+        _refresh_list.call(this, this.element.querySelector('ul'));
+      }
+
+    },
 
     setElement: function(element) {
 

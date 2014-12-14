@@ -1,10 +1,10 @@
 lychee.define('game.net.remote.File').includes([
-  'lychee.net.Service'
+  'lychee.net.remote.Session'
 ]).exports(function(lychee, game, global, attachments) {
 
   var Class = function(remote) {
 
-      lychee.net.Service.call(this, 'file', remote, lychee.net.Service.TYPE.remote);
+      lychee.net.remote.Session.call(this, 'file', remote, {});
 
   };
 

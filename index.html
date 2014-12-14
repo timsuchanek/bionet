@@ -21,16 +21,90 @@
     <script>
     setTimeout(function() {
 
-        var dropzone = new game.ui.Dropzone({
-            element: document.querySelector('#dropzone'),
-            extensions: {
-                'png': true
-            }
-        });
-        dropzone.bind('change', function() {
-            console.log('GET LOW', dropzone.files);
+        var config = new Config('/api/Server?identifier=biolib');
 
-        }, this);
+        config.onload = function() {
+
+          var client = new game.net.Client({
+            host: this.buffer.host,
+            port: this.buffer.port
+          });
+
+          var dropzone = new game.ui.Dropzone({
+              element: document.querySelector('#dropzone'),
+              extensions: {
+                  'png': true
+              }
+          });
+
+
+          client.bind('connect', function() {
+
+            var service = client.getService('file');
+
+            service.bind('multicast', function(diff) {
+
+              var found = false;
+
+              dropzone.files.forEach(function(file) {
+
+                if (file.name === diff.name) {
+                  file.data = lychee.deserialize(diff.data);
+                  found = true;
+                }
+
+              }, this);
+
+              if (found === false) {
+
+                dropzone.files.push({
+                  name: diff.name,
+                  data: lychee.deserialize(diff.data)
+                });
+
+              }
+
+              dropzone.refresh();
+
+            }, this);
+
+            service.bind('join', function() {
+              // TODO: New guy joined the session, request all files
+              console.log('Another shitty client is online');
+            }, this);
+
+            service.join();
+
+
+            var locked = false;
+
+            dropzone.bind('change', function() {
+
+                if (locked === false) {
+
+                  locked = true;
+
+                  var that = this;
+
+                  setTimeout(function() {
+
+                    dropzone.files.forEach(function(file) {
+                      service.sendFile(file);
+                    });
+
+                    locked = false;
+
+                  }, 200);
+
+                }
+
+            }, this);
+
+          }, this);
+
+        };
+
+        config.load();
 
     }, 1000);
     </script>
