@@ -7,23 +7,25 @@ body {
   color: rgb(0,20,97);
 }
 
-.dropzone {
+.game-ui-Dropzone > div {
+  vertical-align: middle;
   background: rgba(232,115,12,.3);
   border: 1px solid rgba(232,115,12,1);
   color: rgba(66,33,3,.8);
   height: 200px;
 }
 
-h1 {
+.game-ui-Dropzone > div > span {
+  display: inline-block;
   margin-top: 90px;
 }
 
-ul {
+.game-ui-Dropzone > ul {
   list-style: none;
   padding: 0;
 }
 
-ul li {
+.game-ui-Dropzone > ul li {
   display: block;
   margin-bottom: 10px;
   padding: 15px;

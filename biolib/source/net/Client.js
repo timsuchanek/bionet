@@ -1,6 +1,7 @@
 
 lychee.define('game.net.Client').requires([
   'lychee.data.BitON',
+  'game.ui.Dropzone',
   'game.net.client.File'
 ]).includes([
   'lychee.net.Client'
